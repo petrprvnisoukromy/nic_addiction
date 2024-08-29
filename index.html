@@ -13,12 +13,11 @@
             // Gather form data
             const formData = {
                 name: document.querySelector('input[name="name"]').value,
-                email: document.querySelector('input[name="email"]').value,
-                message: document.querySelector('textarea[name="message"]').value,
+                email: document.querySelector('input[name="email"]').value
             };
         
             // Call the serverless function
-            fetch('/.netlify/functions/sendEmail', {
+            fetch('repository-root/netlify/functions/sendEmail.js', {
                 method: 'POST', // We're sending data, so we use POST
                 headers: {
                     'Content-Type': 'application/json', // We're sending JSON data
@@ -37,7 +36,7 @@
                 console.error('Error:', error);
                 alert('Došlo k chybě při odesílání e-mailu. Zkuste to prosím znovu.');
             });
-        });        
+        });             
     </script>
 </head>
 <body>
