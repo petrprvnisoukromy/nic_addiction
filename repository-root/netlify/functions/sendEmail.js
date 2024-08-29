@@ -1,31 +1,27 @@
-document.getElementById('email-form').addEventListener('submit', function(event) {
-    event.preventDefault(); // Prevent the form from submitting the traditional way
+const emailjs = require('emailjs'); // Assuming you're using emailjs in the serverless function
 
-    // Gather form data
-    const formData = {
-        name: document.querySelector('input[name="name"]').value,
-        email: document.querySelector('input[name="email"]').value,
-        message: document.querySelector('textarea[name="message"]').value,
+exports.handler = async function(event, context) {
+    const { name, email, message } = JSON.parse(event.body);
+
+    const emailParams = {
+        to_name: name,
+        to_email: email, // This will send the email to the user's email address
+        message: message,
     };
 
-    // Call the serverless function
-    fetch('/.netlify/functions/sendEmail', {
-        method: 'POST', // We're sending data, so we use POST
-        headers: {
-            'Content-Type': 'application/json', // We're sending JSON data
-        },
-        body: JSON.stringify(formData) // Convert the form data to a JSON string
-    })
-    .then(response => response.json()) // Parse the JSON response
-    .then(data => {
-        if (data.message === 'Email sent successfully') {
-            alert('Děkujeme! Váš e-mail byl odeslán.');
-        } else {
-            alert('Odeslání e-mailu se nezdařilo. Zkuste to prosím znovu.');
-        }
-    })
-    .catch(error => {
+    try {
+        // Sending email using EmailJS
+        await emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', emailParams, 'YOUR_USER_ID');
+        
+        return {
+            statusCode: 200,
+            body: JSON.stringify({ message: 'Email sent successfully' }),
+        };
+    } catch (error) {
         console.error('Error:', error);
-        alert('Došlo k chybě při odesílání e-mailu. Zkuste to prosím znovu.');
-    });
-});
+        return {
+            statusCode: 500,
+            body: JSON.stringify({ message: 'Failed to send email' }),
+        };
+    }
+};
