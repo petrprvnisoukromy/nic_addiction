@@ -7,20 +7,32 @@
     <link rel="stylesheet" href="quit-nicotine.css">
     <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
     <script type="text/javascript">
-        (function() {
-            emailjs.init("WeTdS5lsV21zN9PSO"); // Nahraďte 'your_user_id' svým EmailJS uživatelským ID
-        })();
-
-        function sendEmail(event) {
-            event.preventDefault();
-
-            emailjs.sendForm('service_67czw3m', 'template_o51od7c', '#email-form')
-            .then(function() {
-                alert('Děkujeme! Brzy obdržíte více informací.');
-            }, function(error) {
-                alert('Odeslání e-mailu se nezdařilo, zkuste to prosím znovu.');
-            });
-        }
+        document.getElementById('email-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the form from submitting the traditional way
+        
+            // Gather form data
+            const formData = {
+                name: document.querySelector('input[name="name"]').value,
+                email: document.querySelector('input[name="email"]').value,
+                message: document.querySelector('textarea[name="message"]').value,
+            };
+        
+            // Prepare the email parameters for EmailJS
+            const emailParams = {
+                to_name: formData.name,
+                to_email: formData.email, // This is the dynamic part where the user's email is passed
+                message: formData.message,
+            };
+        
+            // Send the email using EmailJS
+            emailjs.send('service_67czw3m', 'template_o51od7c', emailParams)
+                .then(function(response) {
+                    alert('Děkujeme! Váš e-mail byl odeslán.');
+                }, function(error) {
+                    console.error('Error:', error);
+                    alert('Odeslání e-mailu se nezdařilo. Zkuste to prosím znovu.');
+                });
+        });        
     </script>
 </head>
 <body>
@@ -28,11 +40,12 @@
         <div class="overlay">
             <h1>Chcete přestat s nikotinovou závislostí?</h1>
             <p>Vyplňte svůj e-mail a dozvíte se více</p>
-            <form id="email-form" onsubmit="sendEmail(event)">
-                <input type="text" name="to_name" placeholder="Vaše jméno" required> <br>
+            <form id="email-form">
+                <input type="text" name="name" placeholder="Vaše jméno" required>
                 <input type="email" name="email" placeholder="Váš e-mail" required>
+                <textarea name="message" placeholder="Zpráva" required></textarea>
                 <button type="submit">Odeslat</button>
-            </form>                     
+            </form>                                 
         </div>
     </header>
 
