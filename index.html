@@ -7,36 +7,24 @@
     <link rel="stylesheet" href="quit-nicotine.css">
     <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
     <script type="text/javascript">
+        (function(){
+            emailjs.init("YOUR_USER_ID"); // Replace with your actual EmailJS user ID
+        })();
+        
         document.getElementById('email-form').addEventListener('submit', function(event) {
             event.preventDefault(); // Prevent the form from submitting the traditional way
-        
-            // Gather form data
-            const formData = {
-                name: document.querySelector('input[name="name"]').value,
-                email: document.querySelector('input[name="email"]').value
-            };
-        
-            // Call the serverless function
-            fetch('/.netlify/functions/sendEmail', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formData)
+
+            emailjs.send("your_service_id", "your_template_id", {
+                to_name: document.querySelector('input[name="name"]').value,
+                from_name: "Haze Haven",
+                reply_to: document.querySelector('input[name="email"]').value
             })
-            .then(response => response.json())
-            .then(data => {
-                if (data.message === 'Email sent successfully') {
-                    alert('Děkujeme! Váš e-mail byl odeslán.');
-                } else {
-                    alert('Odeslání e-mailu se nezdařilo. Zkuste to prosím znovu.');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('Došlo k chybě při odesílání e-mailu. Zkuste to prosím znovu.');
+            .then(function(response) {
+                alert('Děkujeme! Váš e-mail byl odeslán.');
+            }, function(error) {
+                alert('Odeslání e-mailu se nezdařilo. Zkuste to prosím znovu.');
             });
-        });                 
+        });
     </script>
 </head>
 <body>
