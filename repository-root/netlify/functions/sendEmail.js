@@ -11,7 +11,7 @@ exports.handler = async function(event, context) {
 
     try {
         // Sending email using EmailJS
-        await emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', emailParams, 'YOUR_USER_ID');
+        await emailjs.send('service_67czw3m', 'template_o51od7c', emailParams, 'WeTdS5lsV21zN9PSO');
         
         return {
             statusCode: 200,
