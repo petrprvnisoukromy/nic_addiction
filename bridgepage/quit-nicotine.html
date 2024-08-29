@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Přestaňte s nikotinovou závislostí</title>
+    <link rel="stylesheet" href="quit-nicotine.css">
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function() {
+            emailjs.init("WeTdS5lsV21zN9PSO"); // Nahraďte 'your_user_id' svým EmailJS uživatelským ID
+        })();
+
+        function sendEmail(event) {
+            event.preventDefault();
+
+            emailjs.sendForm('service_67czw3m', 'template_o51od7c', '#email-form')
+            .then(function() {
+                alert('Děkujeme! Brzy obdržíte více informací.');
+            }, function(error) {
+                alert('Odeslání e-mailu se nezdařilo, zkuste to prosím znovu.');
+            });
+        }
+    </script>
+</head>
+<body>
+    <header class="hero-section">
+        <div class="overlay">
+            <h1>Chcete přestat s nikotinovou závislostí?</h1>
+            <p>Vyplňte svůj e-mail a dozvíte se více</p>
+            <form id="email-form" onsubmit="sendEmail(event)">
+                <input type="text" name="to_name" placeholder="Vaše jméno" required> <br>
+                <input type="email" name="email" placeholder="Váš e-mail" required>
+                <button type="submit">Odeslat</button>
+            </form>                     
+        </div>
+    </header>
+
+    <section class="about-section">
+        <div class="container">
+            <h2>Vysvobození z nikotinové závislosti</h2>
+            <p>
+                Přestat s nikotinem je cesta a každá cesta začíná prvním krokem. 
+                Nikotinová závislost je jedním z nejnáročnějších zlozvyků, které lze překonat, ale s vhodným přístupem a podporou 
+                je možné získat svůj život zpět.
+            </p>
+        </div>
+    </section>
+
+    <section class="steps-section">
+        <div class="container">
+            <h2>Kroky k odvykání nikotinu</h2>
+            <ul>
+                <li><strong>Krok 1:</strong> Stanovte si datum, kdy přestanete, a mentálně se připravte.</li>
+                <li><strong>Krok 2:</strong> Odstraňte nikotinové produkty z vašeho prostředí.</li>
+                <li><strong>Krok 3:</strong> Hledejte podporu u přátel, rodiny nebo v podpůrné skupině.</li>
+                <li><strong>Krok 4:</strong> Zvažte náhradní nikotinovou terapii nebo léky.</li>
+                <li><strong>Krok 5:</strong> Zůstaňte aktivní a najděte si zdravé rozptýlení.</li>
+                <li><strong>Krok 6:</strong> Sledujte svůj pokrok a zůstaňte pozitivní.</li>
+            </ul>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Haze Haven. Všechna práva vyhrazena.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Jednoduchá logika odeslání formuláře
+        document.getElementById('email-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Děkujeme! Brzy obdržíte více informací.');
+        });
+    </script>
+</body>
+</html>
