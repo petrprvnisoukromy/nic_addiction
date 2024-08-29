@@ -17,14 +17,14 @@
             };
         
             // Call the serverless function
-            fetch('repository-root/netlify/functions/sendEmail.js', {
-                method: 'POST', // We're sending data, so we use POST
+            fetch('/.netlify/functions/sendEmail', {
+                method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json', // We're sending JSON data
+                    'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(formData) // Convert the form data to a JSON string
+                body: JSON.stringify(formData)
             })
-            .then(response => response.json()) // Parse the JSON response
+            .then(response => response.json())
             .then(data => {
                 if (data.message === 'Email sent successfully') {
                     alert('Děkujeme! Váš e-mail byl odeslán.');
@@ -36,7 +36,8 @@
                 console.error('Error:', error);
                 alert('Došlo k chybě při odesílání e-mailu. Zkuste to prosím znovu.');
             });
-        });             
+        });
+                 
     </script>
 </head>
 <body>
