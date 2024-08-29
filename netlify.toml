@@ -1,7 +1,7 @@
 [build]
-  publish = "path/to/build/output"  # Set this to where your built files are (e.g., "public", "build", or "." for root)
-  functions = "netlify/functions"   # This should match the location of your functions directory
+  functions = "netlify/functions"  # Points to the directory containing your functions
+  publish = "."                    # Points to the directory to publish (root in this case)
 
 [dev]
-  command = "npm start"             # If you have a build command, like with React or another framework
-  publish = "path/to/build/output"
+  command = "npm start"            # Command to start your dev server (if using one)
+  publish = "."  
