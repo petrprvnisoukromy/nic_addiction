@@ -1,8 +1,7 @@
-const emailjs = require('emailjs-com'); // Assuming this is installed via package.json or available globally
+const emailjs = require('emailjs-com');
 
 exports.handler = async function(event, context) {
     try {
-        // Ensure the request method is POST
         if (event.httpMethod !== 'POST') {
             return {
                 statusCode: 405,
@@ -10,17 +9,12 @@ exports.handler = async function(event, context) {
             };
         }
 
-        // Parse the request body
         const data = JSON.parse(event.body);
 
-        // Log the received data for debugging purposes
-        console.log('Received data:', data);
-
-        // Use emailjs to send the email
         const response = await emailjs.send("service_67czw3m", "template_o51od7c", {
             to_name: data.name || 'Unknown',
             from_name: "Haze Haven",
-            email: data.email || 'No email provided',
+            to_email: data.email || 'No email provided',
         });
 
         console.log('EmailJS response:', response);

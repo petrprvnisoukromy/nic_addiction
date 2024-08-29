@@ -1,7 +1,5 @@
 [build]
-  functions = "netlify/functions"  # Points to the directory containing your functions
-  publish = "."                    # Points to the directory to publish (root in this case)
+  functions = "netlify/functions"
 
-[dev]
-  command = "npm start"            # Command to start your dev server (if using one)
-  publish = "."  
+[functions]
+  directory = "netlify/functions"
