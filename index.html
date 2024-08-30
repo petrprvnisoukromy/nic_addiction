@@ -57,26 +57,29 @@
     </footer>
 
     <script type="text/javascript">
-        const btn = document.getElementById('button');
-
-        document.getElementById('form')
-         .addEventListener('submit', function(event) {
-           event.preventDefault();
-
-           btn.value = 'Odesílám...';
-
-           const serviceID = 'default_service';
-           const templateID = 'template_o51od7c';
-
-           emailjs.sendForm(serviceID, templateID, this)
-            .then(() => {
-              btn.value = 'Odesláno';
-              alert('Děkujeme! Váš e-mail byl odeslán.');
-            }, (err) => {
-              btn.value = 'Odeslat';
-              alert('Odeslání e-mailu se nezdařilo. Zkuste to prosím znovu.'); 
+        document.getElementById('email-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+        
+            const userName = document.querySelector('input[name="name"]').value;
+            const userEmail = document.querySelector('input[name="email"]').value;
+        
+            fetch('/.netlify/functions/getEmailJSConfig')
+            .then(response => response.json())
+            .then(config => {
+                emailjs.send(config.EMAILJS_SERVICE_ID, config.EMAILJS_TEMPLATE_ID, {
+                    to_email: userEmail,
+                    from_name: "Haze Haven",
+                    to_name: userName,
+                    reply_to: userEmail
+                }, config.EMAILJS_USER_ID)
+                .then(function(response) {
+                    alert('Děkujeme! Váš e-mail byl odeslán.');
+                }, function(error) {
+                    console.log('Error:', error);
+                    alert('Odeslání e-mailu se nezdařilo. Zkuste to prosím znovu.');
+                });
             });
-        });
+        });        
     </script>
 </body>
 </html>
