@@ -11,19 +11,20 @@ exports.handler = async function(event, context) {
 
         console.log('Received event:', event.body);  // Log the incoming data
 
-        const EMAILJS_USER_ID = process.env.WeTdS5lsV21zN9PSO || 'default_user_id';  // Add fallback for testing
-        const EMAILJS_SERVICE_ID = process.env.service_67czw3m || 'default_service_id';
-        const EMAILJS_TEMPLATE_ID = process.env.template_o51od7c || 'default_template_id';
-
-        console.log('Using EmailJS config:', EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, EMAILJS_USER_ID);
+        const EMAILJS_USER_ID = 'WeTdS5lsV21zN9PSO';  // Replace with your actual EmailJS user ID
+        const EMAILJS_SERVICE_ID = 'service_67czw3m';  // Replace with your actual EmailJS service ID
+        const EMAILJS_TEMPLATE_ID = 'template_o51od7c';  // Replace with your actual EmailJS template ID
 
         const data = JSON.parse(event.body);
 
+        console.log('Sending email with:', EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, EMAILJS_USER_ID, data);
+
         const response = await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-            to_name: data.name,
+            to_name: 'Test User',
             from_name: "Haze Haven",
-            to_email: data.email,
+            to_email: 'test@example.com',
         }, EMAILJS_USER_ID);
+        
 
         console.log('EmailJS response:', response);
 
@@ -32,7 +33,7 @@ exports.handler = async function(event, context) {
             body: JSON.stringify({ message: 'Email sent successfully' }),
         };
     } catch (error) {
-        console.error('Error:', error.message);
+        console.error('Error sending email:', error.message);
         return {
             statusCode: 500,
             body: JSON.stringify({ message: 'Failed to send email', error: error.message }),
