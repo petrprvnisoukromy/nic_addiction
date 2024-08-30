@@ -15,12 +15,12 @@
 <body>
     <header class="hero-section">
         <div class="overlay">
-            <h1>Chcete přestat s nikotinovou závislostí?</h1>
+            <h1>Chcete přestat sa nikotinovou závislostí?</h1>
             <p>Vyplňte svůj e-mail a dozvíte se více</p>
-            <form id="email-form">
-                <input type="text" name="name" placeholder="Vaše jméno" required><br>
-                <input type="email" name="email" placeholder="Váš e-mail" required><br>
-                <button id="button" type="submit">Odeslat</button>
+            <form id="form">
+                <input type="text" name="to_name" placeholder="Vaše jméno" required><br>
+                <input type="email" name="to_email" placeholder="Váš e-mail" required>
+                <button type="submit" id="button">Odeslat</button>
             </form>                                 
         </div>
     </header>
@@ -59,22 +59,23 @@
     <script type="text/javascript">
         const btn = document.getElementById('button');
 
-        document.getElementById('email-form').addEventListener('submit', function(event) {
-            event.preventDefault();
+        document.getElementById('form')
+         .addEventListener('submit', function(event) {
+           event.preventDefault();
 
-            btn.value = 'Odesílání...';
+           btn.value = 'Odesílám...';
 
-            const serviceID = 'default_service';
-            const templateID = 'template_o51od7c';
+           const serviceID = 'default_service';
+           const templateID = 'template_o51od7c';
 
-            emailjs.sendForm(serviceID, templateID, this)
-                .then(() => {
-                    btn.value = 'Odeslat';
-                    alert('Děkujeme! Váš e-mail byl odeslán.');
-                }, (err) => {
-                    btn.value = 'Odeslat';
-                    alert('Chyba: ' + JSON.stringify(err));
-                });
+           emailjs.sendForm(serviceID, templateID, this)
+            .then(() => {
+              btn.value = 'Odesláno';
+              alert('Děkujeme! Váš e-mail byl odeslán.');
+            }, (err) => {
+              btn.value = 'Odeslat';
+              alert('Odeslání e-mailu se nezdařilo. Zkuste to prosím znovu.'); 
+            });
         });
     </script>
 </body>
