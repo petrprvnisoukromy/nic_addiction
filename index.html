@@ -57,27 +57,36 @@
     </footer>
 
     <script type="text/javascript">
-        document.getElementById('email-form').addEventListener('submit', function(event) {
+        const btn = document.getElementById('button');
+
+        document.getElementById('form').addEventListener('submit', function(event) {
             event.preventDefault();
-        
-            const userName = document.querySelector('input[name="name"]').value;
-            const userEmail = document.querySelector('input[name="email"]').value;
-        
+
+            btn.textContent = 'Sending...';
+
+            // Fetching the EmailJS environment variables from the server
             fetch('/.netlify/functions/getEmailJSConfig')
             .then(response => response.json())
             .then(config => {
+                // Using the environment variables from the server
                 emailjs.send(config.EMAILJS_SERVICE_ID, config.EMAILJS_TEMPLATE_ID, {
-                    to_email: userEmail,
+                    to_email: document.querySelector('input[name="to_email"]').value,
                     from_name: "Haze Haven",
-                    to_name: userName,
-                    reply_to: userEmail
+                    to_name: document.querySelector('input[name="to_name"]').value,
                 }, config.EMAILJS_USER_ID)
                 .then(function(response) {
+                    btn.textContent = 'Odeslat';
                     alert('Děkujeme! Váš e-mail byl odeslán.');
                 }, function(error) {
                     console.log('Error:', error);
+                    btn.textContent = 'Odeslat';
                     alert('Odeslání e-mailu se nezdařilo. Zkuste to prosím znovu.');
                 });
+            })
+            .catch(error => {
+                console.error('Error fetching config:', error);
+                btn.textContent = 'Odeslat';
+                alert('Došlo k chybě při získávání konfigurace. Zkuste to prosím znovu.');
             });
         });        
     </script>
