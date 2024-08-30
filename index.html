@@ -8,13 +8,13 @@
     <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
     <script type="text/javascript">
         (function(){
-            emailjs.init("YOUR_USER_ID"); // Replace with your actual EmailJS user ID
+            emailjs.init("WeTdS5lsV21zN9PSO"); // Replace with your actual EmailJS user ID
         })();
         
         document.getElementById('email-form').addEventListener('submit', function(event) {
             event.preventDefault(); // Prevent the form from submitting the traditional way
 
-            emailjs.send("your_service_id", "your_template_id", {
+            emailjs.send("service_67czw3m", "template_o51od7c", {
                 to_name: document.querySelector('input[name="name"]').value,
                 from_name: "Haze Haven",
                 reply_to: document.querySelector('input[name="email"]').value
