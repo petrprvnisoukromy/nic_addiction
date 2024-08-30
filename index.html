@@ -57,41 +57,35 @@
     </footer>
 
     <script type="text/javascript">
-        document.getElementById('form').addEventListener('submit', function(event) {
-            event.preventDefault();
-        
-            const btn = document.getElementById('button');
-            btn.textContent = 'Sending...';
+        document.getElementById('email-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the form from submitting the traditional way
         
             const formData = {
-                name: document.querySelector('input[name="to_name"]').value,
-                email: document.querySelector('input[name="to_email"]').value,
+                name: document.querySelector('input[name="name"]').value,
+                email: document.querySelector('input[name="email"]').value
             };
         
+            // Call the Netlify function
             fetch('/.netlify/functions/sendEmail', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
+                    'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(formData),
+                body: JSON.stringify(formData)
             })
             .then(response => response.json())
             .then(data => {
-                console.log('Response from server:', data);  // Log the response
                 if (data.message === 'Email sent successfully') {
-                    btn.textContent = 'Odeslat';
                     alert('Děkujeme! Váš e-mail byl odeslán.');
                 } else {
-                    btn.textContent = 'Odeslat';
                     alert('Odeslání e-mailu se nezdařilo. Zkuste to prosím znovu.');
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
-                btn.textContent = 'Odeslat';
                 alert('Došlo k chybě při odesílání e-mailu. Zkuste to prosím znovu.');
             });
-        });        
+        });              
     </script>
 </body>
 </html>
