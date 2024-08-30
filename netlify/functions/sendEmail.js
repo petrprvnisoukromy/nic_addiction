@@ -1,24 +1,19 @@
-const fetch = require('node-fetch');
+const axios = require('axios');
 
 exports.handler = async function(event, context) {
-    console.log("Function triggered");
     try {
         if (event.httpMethod !== 'POST') {
-            console.log("Invalid HTTP method:", event.httpMethod);
             return {
                 statusCode: 405,
                 body: JSON.stringify({ message: 'Method Not Allowed' }),
             };
         }
 
-        console.log('Event body:', event.body);
-
         const EMAILJS_USER_ID = process.env.EMAILJS_USER_ID;
         const EMAILJS_SERVICE_ID = process.env.EMAILJS_SERVICE_ID;
         const EMAILJS_TEMPLATE_ID = process.env.EMAILJS_TEMPLATE_ID;
 
         const data = JSON.parse(event.body);
-        console.log('Parsed data:', data);
 
         const emailData = {
             service_id: EMAILJS_SERVICE_ID,
@@ -31,22 +26,18 @@ exports.handler = async function(event, context) {
             }
         };
 
-        const response = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
-            method: 'POST',
+        const response = await axios.post('https://api.emailjs.com/api/v1.0/email/send', emailData, {
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
             },
-            body: JSON.stringify(emailData)
         });
 
-        if (response.ok) {
-            console.log('Email sent successfully');
+        if (response.status === 200) {
             return {
                 statusCode: 200,
                 body: JSON.stringify({ message: 'Email sent successfully' }),
             };
         } else {
-            console.log('Failed to send email');
             return {
                 statusCode: 500,
                 body: JSON.stringify({ message: 'Failed to send email' }),
