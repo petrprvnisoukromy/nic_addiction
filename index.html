@@ -10,6 +10,25 @@
         (function(){
             emailjs.init("WeTdS5lsV21zN9PSO"); // Your EmailJS user ID
         })();
+
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('email-form').addEventListener('submit', function(event) {
+                event.preventDefault(); // Prevent the form from submitting the traditional way
+
+                emailjs.send("service_67czw3m", "template_o51od7c", {
+                    to_email: document.querySelector('input[name="email"]').value, // Ensuring it maps to EmailJS
+                    from_name: "Haze Haven", // Static or dynamic
+                    reply_to: document.querySelector('input[name="email"]').value,
+                    to_name: document.querySelector('input[name="name"]').value // Name field
+                })
+                .then(function(response) {
+                    alert('Děkujeme! Váš e-mail byl odeslán.');
+                }, function(error) {
+                    console.log('Error:', error); // For debugging
+                    alert('Odeslání e-mailu se nezdařilo. Zkuste to prosím znovu.');
+                });
+            });
+        });                     
     </script>
 </head>
 <body>
@@ -55,24 +74,5 @@
             <p>&copy; 2024 Haze Haven. Všechna práva vyhrazena.</p>
         </div>
     </footer>
-
-    <script type="text/javascript">
-        document.getElementById('email-form').addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevent the form from submitting the traditional way
-        
-            emailjs.send("service_67czw3m", "template_o51od7c", {
-                to_email: document.querySelector('input[name="email"]').value,
-                from_name: "Haze Haven",
-                reply_to: document.querySelector('input[name="email"]').value,
-                to_name: document.querySelector('input[name="name"]').value
-            })
-            .then(function(response) {
-                alert('Děkujeme! Váš e-mail byl odeslán.');
-            }, function(error) {
-                console.log('Error:', error); // For debugging
-                alert('Odeslání e-mailu se nezdařilo. Zkuste to prosím znovu.');
-            });
-        });                     
-    </script>
 </body>
 </html>
