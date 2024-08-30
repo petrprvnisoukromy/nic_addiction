@@ -1,36 +1,29 @@
-const nodemailer = require('nodemailer');
+const emailjs = require('emailjs-com'); // Ensure emailjs-com is imported correctly
+const fetch = require('node-fetch'); // For any fetch requests you need to make
 
-exports.handler = async (event, context) => {
-    const { name, email } = JSON.parse(event.body);
-
-    // Create a transporter object using SMTP or any other transport method
-    let transporter = nodemailer.createTransport({
-        service: 'Gmail', // You can use other services like SendGrid, Mailgun, etc.
-        auth: {
-            user: process.env.GMAIL_USER, // Use your environment variables
-            pass: process.env.GMAIL_PASS
-        }
-    });
-
-    // Email options
-    let mailOptions = {
-        from: 'your-email@gmail.com', // Replace with your email address
-        to: email, // This is where the form email will go
-        subject: 'Thank you for reaching out!',
-        text: `Hello ${name},\n\nThank you for your interest! We will get back to you soon.\n\nBest regards,\nHaze Haven Team`
-    };
-
-    // Send email
+exports.handler = async function (event, context) {
     try {
-        await transporter.sendMail(mailOptions);
+        const { name, email } = JSON.parse(event.body);
+
+        const response = await emailjs.send(
+            process.env.SERVICE_ID,
+            process.env.TEMPLATE_ID,
+            {
+                to_name: name,
+                to_email: email,
+            },
+            process.env.USER_ID
+        );
+
         return {
             statusCode: 200,
-            body: JSON.stringify({ message: 'Email sent successfully' })
+            body: JSON.stringify({ message: 'Email sent successfully' }),
         };
     } catch (error) {
+        console.error('Error sending email:', error);
         return {
             statusCode: 500,
-            body: JSON.stringify({ message: 'Failed to send email', error })
+            body: JSON.stringify({ message: 'Failed to send email' }),
         };
     }
 };
