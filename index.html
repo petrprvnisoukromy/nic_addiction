@@ -57,36 +57,39 @@
     </footer>
 
     <script type="text/javascript">
-        const btn = document.getElementById('button');
-
         document.getElementById('form').addEventListener('submit', function(event) {
             event.preventDefault();
-
+        
+            const btn = document.getElementById('button');
             btn.textContent = 'Sending...';
-
-            // Fetching the EmailJS environment variables from the server
-            fetch('/.netlify/functions/sendEmail')
+        
+            const formData = {
+                name: document.querySelector('input[name="to_name"]').value,
+                email: document.querySelector('input[name="to_email"]').value,
+            };
+        
+            fetch('/.netlify/functions/sendEmail', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            })
             .then(response => response.json())
-            .then(config => {
-                // Using the environment variables from the server
-                emailjs.send(config.EMAILJS_SERVICE_ID, config.EMAILJS_TEMPLATE_ID, {
-                    to_email: document.querySelector('input[name="to_email"]').value,
-                    from_name: "Haze Haven",
-                    to_name: document.querySelector('input[name="to_name"]').value,
-                }, config.EMAILJS_USER_ID)
-                .then(function(response) {
+            .then(data => {
+                console.log('Response from server:', data);  // Log the response
+                if (data.message === 'Email sent successfully') {
                     btn.textContent = 'Odeslat';
                     alert('Děkujeme! Váš e-mail byl odeslán.');
-                }, function(error) {
-                    console.log('Error:', error);
+                } else {
                     btn.textContent = 'Odeslat';
                     alert('Odeslání e-mailu se nezdařilo. Zkuste to prosím znovu.');
-                });
+                }
             })
             .catch(error => {
-                console.error('Error fetching config:', error);
+                console.error('Error:', error);
                 btn.textContent = 'Odeslat';
-                alert('Došlo k chybě při získávání konfigurace. Zkuste to prosím znovu.');
+                alert('Došlo k chybě při odesílání e-mailu. Zkuste to prosím znovu.');
             });
         });        
     </script>

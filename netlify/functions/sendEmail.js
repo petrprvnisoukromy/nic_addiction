@@ -1,34 +1,41 @@
-document.getElementById('form').addEventListener('submit', function(event) {
-    event.preventDefault();
+const emailjs = require('emailjs-com');
 
-    const btn = document.getElementById('button');
-    btn.textContent = 'Sending...';
-
-    const formData = {
-        name: document.querySelector('input[name="to_name"]').value,
-        email: document.querySelector('input[name="to_email"]').value,
-    };
-
-    fetch('/.netlify/functions/sendEmail', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.message === 'Email sent successfully') {
-            btn.textContent = 'Odeslat';
-            alert('Děkujeme! Váš e-mail byl odeslán.');
-        } else {
-            btn.textContent = 'Odeslat';
-            alert('Odeslání e-mailu se nezdařilo. Zkuste to prosím znovu.');
+exports.handler = async function(event, context) {
+    try {
+        if (event.httpMethod !== 'POST') {
+            return {
+                statusCode: 405,
+                body: JSON.stringify({ message: 'Method Not Allowed' }),
+            };
         }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        btn.textContent = 'Odeslat';
-        alert('Došlo k chybě při odesílání e-mailu. Zkuste to prosím znovu.');
-    });
-});
+
+        console.log('Received event:', event.body);  // Log the incoming data
+
+        const EMAILJS_USER_ID = process.env.WeTdS5lsV21zN9PSO || 'default_user_id';  // Add fallback for testing
+        const EMAILJS_SERVICE_ID = process.env.service_67czw3m || 'default_service_id';
+        const EMAILJS_TEMPLATE_ID = process.env.template_o51od7c || 'default_template_id';
+
+        console.log('Using EmailJS config:', EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, EMAILJS_USER_ID);
+
+        const data = JSON.parse(event.body);
+
+        const response = await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+            to_name: data.name,
+            from_name: "Haze Haven",
+            to_email: data.email,
+        }, EMAILJS_USER_ID);
+
+        console.log('EmailJS response:', response);
+
+        return {
+            statusCode: 200,
+            body: JSON.stringify({ message: 'Email sent successfully' }),
+        };
+    } catch (error) {
+        console.error('Error:', error.message);
+        return {
+            statusCode: 500,
+            body: JSON.stringify({ message: 'Failed to send email', error: error.message }),
+        };
+    }
+};
