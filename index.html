@@ -6,8 +6,12 @@
     <title>Přestaňte s nikotinovou závislostí</title>
     <link rel="stylesheet" href="quit-nicotine.css">
     <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
-    <script src="email-config.js"></script>
-    <script>
+    <script> 
+        (function(){
+            emailjs.init("WeTdS5lsV21zN9PSO"); // Your EmailJS user ID
+        })();
+
+        
         const btn = document.getElementById('button');
 
         document.getElementById('form')
