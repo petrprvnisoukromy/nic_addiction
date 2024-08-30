@@ -7,6 +7,27 @@
     <link rel="stylesheet" href="quit-nicotine.css">
     <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
     <script src="email-config.js"></script>
+    <script>
+        const btn = document.getElementById('button');
+
+        document.getElementById('form')
+         .addEventListener('submit', function(event) {
+           event.preventDefault();
+
+           btn.value = 'Odesílám...';
+
+           const serviceID = 'default_service';
+           const templateID = 'template_o51od7c';
+
+           emailjs.sendForm(serviceID, templateID, this)
+            .then(() => {
+              btn.value = 'Odesláno';
+              alert('Děkujeme! Váš e-mail byl odeslán.');
+            }, (err) => {
+              btn.value = 'Odeslat';
+              alert('Odeslání e-mailu se nezdařilo. Zkuste to prosím znovu.'); 
+            });
+        });</script>
 </head>
 <body>
     <header class="hero-section">
