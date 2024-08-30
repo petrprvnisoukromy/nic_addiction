@@ -60,32 +60,19 @@
         document.getElementById('email-form').addEventListener('submit', function(event) {
             event.preventDefault(); // Prevent the form from submitting the traditional way
         
-            const formData = {
-                name: document.querySelector('input[name="name"]').value,
-                email: document.querySelector('input[name="email"]').value
-            };
-        
-            // Call the Netlify function
-            fetch('/.netlify/functions/sendEmail', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(formData)
+            emailjs.send("service_67czw3m", "template_o51od7c", {
+                to_email: document.querySelector('input[name="email"]').value,
+                from_name: "Haze Haven",
+                reply_to: document.querySelector('input[name="email"]').value,
+                to_name: document.querySelector('input[name="name"]').value
             })
-            .then(response => response.json())
-            .then(data => {
-                if (data.message === 'Email sent successfully') {
-                    alert('Děkujeme! Váš e-mail byl odeslán.');
-                } else {
-                    alert('Odeslání e-mailu se nezdařilo. Zkuste to prosím znovu.');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('Došlo k chybě při odesílání e-mailu. Zkuste to prosím znovu.');
+            .then(function(response) {
+                alert('Děkujeme! Váš e-mail byl odeslán.');
+            }, function(error) {
+                console.log('Error:', error); // For debugging
+                alert('Odeslání e-mailu se nezdařilo. Zkuste to prosím znovu.');
             });
-        });              
+        });                     
     </script>
 </body>
 </html>
