@@ -1,0 +1,325 @@
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body Styling */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* Top Navigation Bar Styling */
+.top-nav {
+    position: sticky;
+    top: 0; /* Stick to the top of the viewport */
+    z-index: 1000; /* Ensure it stays above other content */
+    background-color: #000120; /* Darker purple */
+    padding: 10px 20px;
+    text-align: center;
+    width: 100%; /* Make sure it stretches across the screen */
+}
+
+.top-nav ul {
+    list-style-type: none;
+}
+
+.top-nav ul li {
+    display: inline;
+    margin: 0 15px;
+}
+
+.top-nav ul li a {
+    color: #ffd700; /* Yellow */
+    text-decoration: none;
+    font-size: 1.1em;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.top-nav ul li a:hover {
+    color: #ffffff; /* White on hover */
+}
+
+/* Header Styling */
+header {
+    background-color: #000120; /* Darker purple */
+    color: #ffffff;
+    padding: 20px;
+    text-align: center;
+    border-bottom: 4px solid #000120; /* Yellow border */
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5em;
+    color: #ffd700; /* Bright yellow text */
+}
+
+header p {
+    margin: 5px 0 0;
+    font-size: 1.2em;
+    color: #ffffff;
+}
+
+/* Hero Section Styling */
+.hero-section {
+    height: 80vh;
+    background-image: url('background_image.webp'); /* Use your vibrant background image here */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; /* This makes the background image fixed in place */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+}
+
+.overlay {
+    background-color: rgba(0, 0, 0, 0.6); /* Dark semi-transparent overlay */
+    color: #ffd700; /* Yellow text */
+    padding: 30px;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.overlay h1 {
+    font-size: 3em;
+    margin-bottom: 10px;
+    color: #ffd700; /* Yellow */
+}
+
+.overlay p {
+    font-size: 1.2em;
+    margin-top: 0;
+    color: #ffffff;
+}
+
+/* About Section Styling with Initial Shadow */
+.about-section {
+    padding: 50px 20px;
+    background-color: #000120;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    margin-top: -50px; /* Overlap the hero section slightly */
+    box-shadow: 0px -50px 50px rgba(0, 0, 0, 0); /* Initial shadow is invisible */
+    transition: box-shadow 1.2s ease-in-out; /* Smooth transition for the shadow */
+}
+
+/* Scroll Shadow Effect Class */
+.about-section.scrolled {
+    box-shadow: 0px -70px 70px rgba(0, 0, 0, 0.7); /* Darker shadow extending upwards */
+}
+
+.about-section h2 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    color: #ffffff;
+}
+
+.about-section p {
+    font-size: 1.1em;
+    color: #ffffff;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Container Styling */
+.container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.container p {
+    color: #000120; /* Darker purple */
+}
+
+.container h2 {
+    color: #000120; /* Darker purple */
+}
+
+/* Product Styling (Main Page) */
+.products-section {
+    padding: 50px 20px;
+    background-color: #f5f5f5;
+}
+
+.products-section .product {
+    display: flex;
+    margin-bottom: 20px;
+    padding: 15px;
+    border-bottom: 1px solid #eeeeee;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.products-section .product img {
+    max-width: 200px;
+    margin-right: 20px;
+    border: 1px solid #ffd700; /* Yellow border */
+    border-radius: 10px;
+}
+
+.products-section .product-details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: #333;
+}
+
+.products-section .product-details h2 {
+    margin: 0 0 10px 0;
+    font-size: 1.8em;
+    color: #000120; /* Darker purple */
+}
+
+.products-section .product-details p {
+    margin: 0 0 10px 0;
+    color: #666;
+    font-size: 1em;
+}
+
+.products-section .product-details .price {
+    font-size: 1.5em;
+    color: #ffd700; /* Yellow price */
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.products-section .product-details button {
+    padding: 10px 20px;
+    background-color: #000120; /* Darker purple */
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    text-transform: uppercase;
+    transition: background-color 0.3s;
+}
+
+.products-section .product-details button:hover {
+    background-color: #000120; /* Slightly darker purple */
+}
+
+/* Product Details Page Styling */
+body.product-details-page {
+    background-image: url('your-image-path.png'); /* Replace with the same image used for the hero section */
+    background-size: cover;
+    background-position: center;
+    color: white;
+}
+
+.product-details-page .container {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid #000120; /* Darker purple */
+}
+
+.product-details-page .product {
+    text-align: center;
+}
+
+.product-details-page .product img {
+    max-width: 250px;
+    height: auto;
+    margin-bottom: 20px;
+    border: 1px solid #ffd700; /* Yellow border */
+    border-radius: 10px;
+}
+
+.product-details-page .price {
+    font-size: 1.8em;
+    margin-top: 20px;
+    color: #ffd700; /* Yellow price */
+}
+
+.product-details-page .description {
+    margin-top: 10px;
+    font-size: 1.2em;
+    color: #ffffff;
+}
+
+.flavors {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.flavors button {
+    background-color: transparent;
+    border: none;
+    color: #ffd700; /* Yellow */
+    font-size: 2em;
+    cursor: pointer;
+    margin: 0 20px;
+}
+
+.flavors button:hover {
+    color: #ffffff; /* White on hover */
+}
+
+.flavors button:focus {
+    outline: none;
+}
+
+/* Scroll Arrow Container Styling */
+.scroll-arrow-container {
+    position: fixed;
+    top: 50%;
+    left: 20px; /* Position on the left side of the screen */
+    transform: translateY(-50%);
+    z-index: 10;
+    display: flex;
+    flex-direction: column; /* Stack text above the arrow */
+    align-items: center;
+}
+
+/* Scroll Text Styling */
+.scroll-text {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 1.5em; /* Smaller text size */
+    color: #ffffff; /* White color for the text */
+    text-shadow: 0 0 5px #eeeeee;
+    margin-bottom: 5px; /* Space between text and arrow */
+}
+
+/* Scroll Arrow Styling */
+.scroll-arrow {
+    font-size: 8em; /* Larger arrow size */
+    color: #ff0000; /* Red color for the arrow */
+    animation: bounce 2s infinite;
+    text-shadow: 0 0 5px #ff0000;
+}
+
+/* Bounce Animation */
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10px);
+    }
+    60% {
+        transform: translateY(-5px);
+    }
+}
+
+
+

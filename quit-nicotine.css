@@ -141,3 +141,14 @@ footer p {
     margin: 0;
     font-size: 0.9em;
 }
+
+.hidden-login-link {
+    display: none;
+}
+
+footer:hover .hidden-login-link {
+    display: block;
+    text-align: center;
+    margin-top: 10px;
+    color: #ffd700;
+}

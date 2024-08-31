@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <script>
+        // Check if the user is authenticated
+        const authToken = localStorage.getItem('authToken');
+        if (!authToken) {
+            window.location.href = 'login.html';
+        }
+    </script>
+
+    <div class="admin-container">
+        <h1>Add New Product</h1>
+        <form id="add-product-form">
+            <input type="text" id="product-name" placeholder="Product Name" required><br>
+            <input type="text" id="product-desc" placeholder="Product Description" required><br>
+            <input type="text" id="product-img" placeholder="Image URL" required><br>
+            <input type="number" id="product-puffs" placeholder="Puffs" required><br>
+            <input type="text" id="product-status" placeholder="Stock Status" required><br>
+            <button type="submit">Add Product</button>
+        </form>
+        <p id="add-product-error" style="color: red;"></p>
+    </div>
+
+    <script>
+        // Product adding script here...
+    </script>
+</body>
+</html>
